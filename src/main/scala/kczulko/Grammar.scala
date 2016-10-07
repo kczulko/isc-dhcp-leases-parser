@@ -2,8 +2,18 @@ package kczulko
 
 import scala.util.parsing.combinator._
 
-class Syntax extends JavaTokenParsers {
-  def lease : Parser[Any] = "lease"~"{"~rep(element)~"}"
+object Element extends Enumeration {
+  val interface = Value("interface")
+  val fixed_address = Value("fixed_address")
+  val filename = Value("filename")
+  val option = Value("option")
+  val renew = Value("renew")
+  val rebind = Value("rebind")
+  val expire = Value("expire")
+}
+
+class Grammar extends JavaTokenParsers {
+  def lease : Parser[Any] = rep("lease"~"{"~rep(element)~"}")
   def element : Parser[Any] = (
         interface
       | fixed_address
@@ -17,7 +27,9 @@ class Syntax extends JavaTokenParsers {
   def interface : Parser[Any] = "interface"~stringLiteral
   def fixed_address : Parser[Any] = "fixed-address"~"""[\d\.]+""".r
   def filename : Parser[Any] = "filename"~stringLiteral
-  def option : Parser[Any] = "option"~(
+
+  def option : Parser[Any] = "option"~optionElement~repsep("""["\d\w\.-]+""".r, ",")
+  def optionElement : Parser[Any] = (
         "subnet-mask"
       | "routers"
       | "dhcp-lease-time"
@@ -29,9 +41,8 @@ class Syntax extends JavaTokenParsers {
       | "host-name"
       | "netbios-name-servers"
       | "domain-name"
-    )~(
-        repsep("""["\d\w\.-]+""".r, ",")
-    )
+  )
+
   def renew : Parser[Any] = "renew"~decimalNumber~dateLiteral~hourLiteral
   def rebind : Parser[Any] = "rebind"~decimalNumber~dateLiteral~hourLiteral
   def expire : Parser[Any] = "expire"~decimalNumber~dateLiteral~hourLiteral
