@@ -24,9 +24,9 @@ object Main {
         }""".stripMargin
 
   def main(args: Array[String]): Unit = {
-    val syntax: Syntax = new Syntax
+    val grammar: Grammar = new Grammar
     println(leaseEntry)
-    println(syntax.parseAll(syntax.lease, leaseEntry))
+    println(grammar.parseAll(grammar.leases, leaseEntry))
   }
 
 }

@@ -13,8 +13,10 @@ object Element extends Enumeration {
 }
 
 class Grammar extends JavaTokenParsers {
-  def lease : Parser[Any] = rep("lease"~"{"~rep(element)~"}")
-  def element : Parser[Any] = (
+
+  def leases : Parser[Any] = rep(lease)
+  private def lease : Parser[Any] = "lease"~"{"~rep(element)~"}"
+  private def element : Parser[Any] = (
         interface
       | fixed_address
       | filename
@@ -24,12 +26,12 @@ class Grammar extends JavaTokenParsers {
       | expire
     )~";"
 
-  def interface : Parser[Any] = "interface"~stringLiteral
-  def fixed_address : Parser[Any] = "fixed-address"~"""[\d\.]+""".r
-  def filename : Parser[Any] = "filename"~stringLiteral
+  private def interface : Parser[Any] = "interface"~stringLiteral
+  private def fixed_address : Parser[Any] = "fixed-address"~"""[\d\.]+""".r
+  private def filename : Parser[Any] = "filename"~stringLiteral
 
-  def option : Parser[Any] = "option"~optionElement~repsep("""["\d\w\.-]+""".r, ",")
-  def optionElement : Parser[Any] = (
+  private def option : Parser[Any] = "option"~optionElement~repsep("""["\d\w\.-]+""".r, ",")
+  private def optionElement : Parser[Any] = (
         "subnet-mask"
       | "routers"
       | "dhcp-lease-time"
@@ -43,10 +45,10 @@ class Grammar extends JavaTokenParsers {
       | "domain-name"
   )
 
-  def renew : Parser[Any] = "renew"~decimalNumber~dateLiteral~hourLiteral
-  def rebind : Parser[Any] = "rebind"~decimalNumber~dateLiteral~hourLiteral
-  def expire : Parser[Any] = "expire"~decimalNumber~dateLiteral~hourLiteral
+  private def renew : Parser[Any] = "renew"~decimalNumber~dateLiteral~hourLiteral
+  private def rebind : Parser[Any] = "rebind"~decimalNumber~dateLiteral~hourLiteral
+  private def expire : Parser[Any] = "expire"~decimalNumber~dateLiteral~hourLiteral
 
-  def dateLiteral = """\d{4}/\d{2}/\d{2}""".r
-  def hourLiteral = """\d{2}:\d{2}:\d{2}""".r
+  private def dateLiteral = """\d{4}/\d{2}/\d{2}""".r
+  private def hourLiteral = """\d{2}:\d{2}:\d{2}""".r
 }
