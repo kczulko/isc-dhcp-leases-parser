@@ -1,4 +1,4 @@
-package kczulko.parsers
+package com.kczulko.parsers
 
 import scala.util.matching.Regex
 import scala.util.matching.Regex.Match

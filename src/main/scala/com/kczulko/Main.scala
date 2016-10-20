@@ -1,4 +1,6 @@
-package kczulko
+package com.kczulko
+
+import com.kczulko.grammars.IscDhcpLeasesGrammar
 
 object Main {
   val leaseEntry =
@@ -26,16 +28,16 @@ object Main {
       |  set lease_hostname = "abc";
       |  client-hostname "abc";
       |  on expiry {
-      |    execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", "00:00:00:00:00:00");
+      |    execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", "00:00:00:00:00:00");
       |  }
       |  on release {
-      |    execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr);
+      |    execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr);
       |  }
       |}
     """.stripMargin
 
   def main(args: Array[String]): Unit = {
-    val grammar: Grammar = new Grammar
+    val grammar: IscDhcpLeasesGrammar = new IscDhcpLeasesGrammar
     println(leaseEntry)
     println(grammar.parseAll(grammar.leases, leaseEntry))
   }
