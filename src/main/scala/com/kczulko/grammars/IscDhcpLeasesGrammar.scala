@@ -8,8 +8,8 @@ class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with Ja
 
   def leases: Parser[List[Any]] = rep(lease)
 
-  private def lease: Parser[(String, Map[String, Any])] = "lease"~IP_ADDRESS_REGEX~"{"~rep(element)~"}" ^^
-    { case _~ip~_~elem~_ => (ip, Map() ++ elem)}
+  private def lease: Parser[(String, List[(String, Any)])] = "lease"~IP_ADDRESS_REGEX~"{"~rep(element)~"}" ^^
+    { case _~ip~_~elem~_ => (ip, elem)}
 
   private def element: Parser[(String, Any)] = (
         notifications
