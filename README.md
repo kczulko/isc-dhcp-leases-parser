@@ -4,6 +4,9 @@ Simple isc-dhcp-leases parser written in scala. Utilizes combinator-parsing modu
 
 # TODO
 
-1. Implement ^^ operator for each Parser[T].
-2. Unit/Property-based tests.
-3. Check grammar with ISC dhcpd.leases schema.
+1. Unit/Property-based tests.
+2. Assure that unknow properties won't fail whole parsing process.
+3. Create examples and proper README.md.
+3. Pin building system.
+4. Provide ivy releases.
+
