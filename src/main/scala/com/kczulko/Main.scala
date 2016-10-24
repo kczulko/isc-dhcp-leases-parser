@@ -5,6 +5,8 @@ import com.kczulko.grammars.IscDhcpLeasesGrammar
 object Main {
   val leaseEntry =
     """
+      |# first line comment
+      |# second line comment
       |lease 110.31.40.13 {
       |  starts 2 2016/10/18 10:16:46;
       |  ends 2 2016/10/18 10:21:46;
@@ -15,6 +17,7 @@ object Main {
       |  hardware ethernet 54:ab:aa:36:b4:e1;
       |  client-hostname "other";
       |}
+      |service-duid "doesnotmatter";
       |lease 103.32.10.93 {
       |  starts 2 2016/10/18 10:17:05;
       |  ends 2 2016/10/18 10:22:05;
