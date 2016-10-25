@@ -1,6 +1,8 @@
-# isc-dhcp-leases-parser
+# isc-dhcp-leases-parser   
 
 Simple isc-dhcp-leases parser written in scala. Utilizes combinator-parsing module from scala.util.
+
+[![Build Status](https://travis-ci.org/kczulko/isc-dhcp-leases-parser.svg?branch=master)](https://travis-ci.org/kczulko/isc-dhcp-leases-parser)
 
 # TODO
 
