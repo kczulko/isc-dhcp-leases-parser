@@ -5,13 +5,21 @@ import scala.util.parsing.combinator._
 
 class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with JavaTokenParsers {
 
-  private implicit def `~toTupleParser`[T, U](p: Parser[~[T, U]]): Parser[(T, U)] = p ^^ (v => (v._1, v._2))
-
-  def leases: Parser[Any] = rep(
+  def leases: Parser[Result] = rep(
         lease
       | server_duid
       | unknown
-  ) ^^ { case list => list.foldRight }
+  ) ^^
+    {
+      case list =>
+        list.foldRight(Result()){(item, result) =>
+          item match {
+            case l: Lease => result.copy(leases = l :: result.leases)
+            case s: ServerDuid => result.copy(serverDuid = Some(s))
+            case _ => result
+          }
+        }
+    }
 
   private def unknown: Parser[Item] = """(.*)?\n""".r ^^ { case _ => Unknown}
 
