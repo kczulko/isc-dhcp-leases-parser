@@ -1,42 +1,46 @@
 package com.kczulko.isc.dhcp.grammars
 
+import com.kczulko.isc.dhcp.grammars.TestData.{multipleLeases, singleLeaseWithServerDuid, singleLeaseWithoutSomeData}
 import com.kczulko.isc.dhcp.model._
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
 class IscDhcpLeasesGrammarTest extends FlatSpec with Matchers with Inside {
 
-  val grammar: IscDhcpLeasesGrammar = new IscDhcpLeasesGrammar
+  val grammar = new IscDhcpLeasesGrammar
 
-  it should "parse valid entry without some data" in {
-    val entry =
-      """
-        |lease 110.31.40.13 {
-        |  binding state active;
-        |  next binding state free;
-        |  rewind binding state free;
-        |  hardware ethernet 54:ab:aa:36:b4:e1;
-        |  client-hostname "other";
-        |}
-      """.stripMargin
+  "leases parser" should "parse valid single entry without some data" in {
 
-    val result = grammar.parseAll(grammar.leases, entry)
+    val result = grammar.parseAll(grammar.leases, singleLeaseWithoutSomeData._1)
 
     result.successful shouldBe true
-    inside(result.get) { case Result(leases, serverDuid) =>
+    inside(result.get) {
+      case Result(leases, serverDuid) =>
         serverDuid shouldEqual None
         leases should have length 1
-        leases should contain only (
-          Lease(
-            ip = Ip("110.31.40.13"),
-            bindingState = Some(BindingState("active")),
-            extendedBindingStates = List(
-              ExtendedBindingState("next", "free"),
-              ExtendedBindingState("rewind", "free")
-            ),
-            hardwareEthernet = Some(HardwareEthernet("54:ab:aa:36:b4:e1")),
-            clientHostname = Some(ClientHostname("\"other\""))
-          )
-        )
+        leases should contain only
+          singleLeaseWithoutSomeData._2
+    }
+  }
+
+  it should "parse multiple entries" in {
+    val result = grammar.parseAll(grammar.leases, multipleLeases._1)
+
+    result.successful shouldBe true
+    inside(result.get) {
+      case Result(leases, serverDuid) =>
+        serverDuid shouldEqual None
+        leases.length shouldEqual multipleLeases._2.length
+        leases should contain theSameElementsAs multipleLeases._2
+    }
+  }
+
+  it should "parse entry with server-duid" in {
+    val result = grammar.parseAll(grammar.leases, singleLeaseWithServerDuid._1)
+
+    result.successful shouldBe true
+    inside(result.get) {
+      case result @ Result(leases, serverDuid) =>
+        result shouldEqual singleLeaseWithServerDuid._2
     }
   }
 }
