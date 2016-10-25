@@ -1,4 +1,4 @@
-package com.kczulko.grammars
+package com.kczulko.isc.dhcp.grammars
 
 import org.scalatest.{FlatSpec, Inside, Matchers}
 

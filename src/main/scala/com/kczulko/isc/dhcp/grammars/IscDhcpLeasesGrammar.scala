@@ -1,6 +1,6 @@
-package com.kczulko.grammars
+package com.kczulko.isc.dhcp.grammars
 
-import com.kczulko.model._
+import com.kczulko.isc.dhcp.model._
 import scala.util.parsing.combinator._
 
 class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with JavaTokenParsers {
@@ -8,14 +8,15 @@ class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with Ja
   private implicit def `~toTupleParser`[T, U](p: Parser[~[T, U]]): Parser[(T, U)] = p ^^ (v => (v._1, v._2))
 
   def leases: Parser[Any] = rep(
-        comment
-      | lease
-      | service_duid
-  )
+        lease
+      | server_duid
+      | unknown
+  ) ^^ { case list => list.foldRight }
 
-  private def comment: Parser[String] = """#(.*)?""".r
+  private def unknown: Parser[Item] = """(.*)?\n""".r ^^ { case _ => Unknown}
 
-  private def service_duid: Parser[(String, String)] = "service-duid"~WHATEVER_REGEX
+  private def server_duid: Parser[ServerDuid] = "server-duid"~WHATEVER_REGEX ^^
+    { case _~duid => ServerDuid(duid) }
 
   private def lease: Parser[Lease] = "lease"~IP_ADDRESS_REGEX~"{"~rep(element)~"}" ^^
     { case _~ip~_~elems~_ =>
@@ -32,7 +33,7 @@ class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with Ja
       })
     }
 
-  private def element: Parser[LeaseToken] = (
+  private def element: Parser[Item] = (
         notification
       | bindingState
       | extendedBindingState
@@ -41,10 +42,10 @@ class IscDhcpLeasesGrammar extends RegexParsers with IscDhcpLeasesTokens with Ja
       | set
       | uid
       | onEvent
-      | unknown
+      | other
     )<~";?".r
 
-  private def unknown: Parser[LeaseToken] = WHATEVER_REGEX ^^ { case _ => Unknown }
+  private def other: Parser[Item] = WHATEVER_REGEX ^^ { case _ => Unknown }
 
   private def onEvent: Parser[OnEvent] = "on"~(
         "expiry"

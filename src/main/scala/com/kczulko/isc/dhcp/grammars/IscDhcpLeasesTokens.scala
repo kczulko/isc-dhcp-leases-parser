@@ -1,6 +1,6 @@
-package com.kczulko.grammars
+package com.kczulko.isc.dhcp.grammars
 
-import com.kczulko.parsers.RegexMatchedParser
+import com.kczulko.isc.dhcp.parsers.RegexMatchedParser
 
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.Parsers

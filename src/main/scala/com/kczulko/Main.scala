@@ -1,6 +1,6 @@
 package com.kczulko
 
-import com.kczulko.grammars.IscDhcpLeasesGrammar
+import com.kczulko.isc.dhcp.grammars.IscDhcpLeasesGrammar
 
 object Main {
   val leaseEntry =
@@ -17,7 +17,7 @@ object Main {
       |  hardware ethernet 54:ab:aa:36:b4:e1;
       |  client-hostname "other";
       |}
-      |service-duid "doesnotmatter";
+      |server-duid "doesnotmatter";
       |lease 103.32.10.93 {
       |  starts 2 2016/10/18 10:17:05;
       |  ends 2 2016/10/18 10:22:05;
