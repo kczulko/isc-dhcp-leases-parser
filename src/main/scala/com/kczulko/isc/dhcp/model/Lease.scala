@@ -8,8 +8,8 @@ case class Lease(ip: Ip,
                  onEvent: List[OnEvent] = List(),
                  variables: Set[Variable] = Set(),
                  notifications: List[Notification] = List(),
-                 extendedBindingStates: List[ExtendedBindingState] = List()
-                ) extends Item
+                 extendedBindingStates: List[ExtendedBindingState] = List())
+    extends Item
 
 case class Ip(ip: String) extends Item
 case class Uid(uid: String) extends Item

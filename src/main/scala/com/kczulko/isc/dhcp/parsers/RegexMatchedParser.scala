@@ -11,10 +11,13 @@ trait RegexMatchedParser extends RegexParsers {
       val offset = in.offset
       val start = handleWhiteSpace(source, offset)
       r findPrefixMatchOf source.subSequence(start, source.length) match {
-        case Some(matched) => Success(matched, in.drop(start + matched.end - offset))
-        case None => Failure(
-          s"string matching regex `$r' expected but `${in.first}' found", in.drop(start - offset)
-        )
+        case Some(matched) =>
+          Success(matched, in.drop(start + matched.end - offset))
+        case None =>
+          Failure(
+            s"string matching regex `$r' expected but `${in.first}' found",
+            in.drop(start - offset)
+          )
       }
     }
   }

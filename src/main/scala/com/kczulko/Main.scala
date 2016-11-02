@@ -42,6 +42,8 @@ object Main {
   def main(args: Array[String]): Unit = {
     val grammar: IscDhcpLeasesGrammar = new IscDhcpLeasesGrammar
     println(leaseEntry)
-    println(grammar.parseAll(grammar.leases, leaseEntry))
+    println(
+      grammar.parseAll(grammar.leases, leaseEntry + "whatever can be here")
+    )
   }
 }
