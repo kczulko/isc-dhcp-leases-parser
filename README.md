@@ -103,6 +103,7 @@ Seq(
 ```
 
 Parser is aware of following tokens within simple lease entry:
+
 1. `starts`, `ends`, `cltt` mapped to `Notification` class
 1. `binding state` mapped to `BindingState` class 
 1. `(next | rewind) binding state` mapped to `ExtendedBindingState` class 
