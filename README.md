@@ -112,7 +112,7 @@ Parser is aware of following tokens within simple lease entry:
 1. `client-hostname` mapped to `ClientHostname` class
 1. `on (expiry | release)` mapped to `OnEvent` class
 
-Tokens other than those provided above will be ignored.
+**Tokens other than those provided above will be ignored**.
 
 # TODO
 
