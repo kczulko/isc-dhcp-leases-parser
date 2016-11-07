@@ -2,7 +2,7 @@
 
 Simple isc-dhcp-leases file parser written in scala. Utilizes combinator-parsing module from `scala.util`. It allows to map content of `/var/lib/dhcp/dhcpd.leases` file into simple scala's case classes structure.
 
-# Mapping example
+# mapping example
 
 `dhcpd.leases` content like:
 
