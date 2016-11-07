@@ -104,13 +104,13 @@ Seq(
 
 Parser is aware of following tokens within simple lease entry:
 
-1. `starts`, `ends`, `cltt` mapped to `Notification` class
+1. `starts`, `ends`, `cltt`, `tstp` mapped to `Notification` class
 1. `binding state` mapped to `BindingState` class 
 1. `(next | rewind) binding state` mapped to `ExtendedBindingState` class 
 1. `hardware ethernet` mapped to `HardwareEthernet` class 
 1. `set` mapped to `Set[String]` collection
 1. `client-hostname` mapped to `ClientHostname` class
-1. `on (expiry | release)` mapped to `OnEvent` class
+1. `on (expiry | release | commit)` mapped to `OnEvent` class
 
 **Tokens other than those provided above will be ignored**.
 
