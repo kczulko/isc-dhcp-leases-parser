@@ -41,64 +41,67 @@ lease 103.32.10.93 {
 will be mapped into
 
 ```scala
-Seq(
-  Lease(
-    ip = Ip("110.31.40.13"),
-    notifications = List(
-      Notification("starts", Map(
-        "id" -> "2",
-        "date" -> "2016/10/18",
-        "time" -> "10:16:46"
-      )),
-      Notification("ends", Map(
-        "id" -> "2",
-        "date" -> "2016/10/18",
-        "time" -> "10:21:46"
-      )),
-      Notification("cltt", Map(
-        "id" -> "2",
-        "date" -> "2016/10/18",
-        "time" -> "10:16:46"
-      ))
+Result(
+  leases = Seq(
+    Lease(
+      ip = Ip("110.31.40.13"),
+      notifications = List(
+        Notification("starts", Map(
+          "id" -> "2",
+          "date" -> "2016/10/18",
+          "time" -> "10:16:46"
+        )),
+        Notification("ends", Map(
+          "id" -> "2",
+          "date" -> "2016/10/18",
+          "time" -> "10:21:46"
+        )),
+        Notification("cltt", Map(
+          "id" -> "2",
+          "date" -> "2016/10/18",
+          "time" -> "10:16:46"
+        ))
+      ),
+      bindingState = Some(BindingState("active")),
+      extendedBindingStates = List(
+        ExtendedBindingState("next", "free"),
+        ExtendedBindingState("rewind", "free")
+      ),
+      hardwareEthernet = Some(HardwareEthernet("54:ab:aa:36:b4:e1")),
+      clientHostname = Some(ClientHostname("\"other\""))
     ),
-    bindingState = Some(BindingState("active")),
-    extendedBindingStates = List(
-      ExtendedBindingState("next", "free"),
-      ExtendedBindingState("rewind", "free")
-    ),
-    hardwareEthernet = Some(HardwareEthernet("54:ab:aa:36:b4:e1")),
-    clientHostname = Some(ClientHostname("\"other\""))
-  ),
-  Lease(
-    ip = Ip("103.32.10.93"),
-    notifications = List(
-      Notification("starts", Map(
-        "id" -> "2",
-        "date" -> "2016/10/18",
-        "time" -> "10:17:05"
-      ))
-    ),
-    bindingState = Some(BindingState("active")),
-    extendedBindingStates = List(
-      ExtendedBindingState("next", "free"),
-      ExtendedBindingState("rewind", "free")
-    ),
-    hardwareEthernet = Some(HardwareEthernet("c0:aa:d5:65:cc:f4")),
-    variables = Set(
-      Variable("""mac_addr = "c0:aa:d5:65:cc:f4""""),
-      Variable("""ip_addr = "102.31.50.97""""),
-      Variable("""lease_hostname = "abc"""")
-    ),
-    clientHostname = Some(ClientHostname("\"abc\"")),
-    onEvent = List(
-      OnEvent("expiry", List(
-        """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
-      )),
-      OnEvent("release", List(
-        """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
-      ))
+    Lease(
+      ip = Ip("103.32.10.93"),
+      notifications = List(
+        Notification("starts", Map(
+          "id" -> "2",
+          "date" -> "2016/10/18",
+          "time" -> "10:17:05"
+        ))
+      ),
+      bindingState = Some(BindingState("active")),
+      extendedBindingStates = List(
+        ExtendedBindingState("next", "free"),
+        ExtendedBindingState("rewind", "free")
+      ),
+      hardwareEthernet = Some(HardwareEthernet("c0:aa:d5:65:cc:f4")),
+      variables = Set(
+        Variable("""mac_addr = "c0:aa:d5:65:cc:f4""""),
+        Variable("""ip_addr = "102.31.50.97""""),
+        Variable("""lease_hostname = "abc"""")
+      ),
+      clientHostname = Some(ClientHostname("\"abc\"")),
+      onEvent = List(
+        OnEvent("expiry", List(
+          """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
+        )),
+        OnEvent("release", List(
+          """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
+        ))
+      )
     )
-  )
+  ),
+  serverDuid = None
 )
 ```
 
@@ -113,6 +116,8 @@ Parser is aware of following tokens within simple lease entry:
 1. `on (expiry | release | commit)` mapped to `OnEvent` class
 
 **Tokens other than those provided above will be ignored**.
+
+On the other hand, parses expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases`.
 
 # TODO
 
