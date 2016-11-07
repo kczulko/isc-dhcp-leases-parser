@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/kczulko/isc-dhcp-leases-parser.svg?branch=master)](https://travis-ci.org/kczulko/isc-dhcp-leases-parser)
 
-Simple isc-dhcp-leases file parser written in scala. Utilizes combinator-parsing module from scala.util. It allows to map content of /var/lib/dhcp/dhcpd.leases file into simple scala's case classes structure.
+Simple isc-dhcp-leases file parser written in scala. Utilizes combinator-parsing module from `scala.util`. It allows to map content of `/var/lib/dhcp/dhcpd.leases` file into simple scala's case classes structure.
 
 # Mapping example
 
@@ -102,10 +102,20 @@ Seq(
 )
 ```
 
+Parser is aware of following tokens within simple lease entry:
+1. `starts`, `ends`, `cltt` mapped to `Notification` class
+1. `binding state` mapped to `BindingState` class 
+1. `(next | rewind) binding state` mapped to `ExtendedBindingState` class 
+1. `hardware ethernet` mapped to `HardwareEthernet` class 
+1. `set` mapped to `Set[String]` collection
+1. `client-hostname` mapped to `ClientHostname` class
+1. `on (expiry | release)` mapped to `OnEvent` class
+
+Tokens other than those provided above will be ignored.
+
 # TODO
 
 1. More tests.
 1. Assure that unknow properties won't fail whole parsing process.
-1. Examples and proper README.md.
 1. Deploy artifact to some repo.
 
