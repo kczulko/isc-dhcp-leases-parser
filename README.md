@@ -30,10 +30,10 @@ lease 103.32.10.93 {
   set lease_hostname = "abc";
   client-hostname "abc";
   on expiry {
-    execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", "00:00:00:00:00:00");
+    execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", mac_addr);
   }
   on release {
-    execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr);
+    execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr);
   }
 }
 ```
@@ -92,17 +92,15 @@ Seq(
     clientHostname = Some(ClientHostname("\"abc\"")),
     onEvent = List(
       OnEvent("expiry", List(
-        """execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
+        """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "expiry", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
       )),
       OnEvent("release", List(
-        """execute ("/usr/bin/python", "/home/com.kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
+        """execute ("/usr/bin/python", "/home/kczulko/script.py", "--param", ip_addr, "--otherParam", "release", "--hostname", lease_hostname, "--mac-address", mac_addr)"""
       ))
     )
   )
 )
 ```
-
-Example content:
 
 # TODO
 
