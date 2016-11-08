@@ -117,7 +117,7 @@ Parser is aware of following tokens within simple lease entry:
 
 **Tokens other than those provided above will be ignored**.
 
-On the other hand, parses expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases`.
+On the other hand, parser expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases`.
 
 # Usage example
 
