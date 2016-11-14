@@ -1,5 +1,6 @@
 package com.github.kczulko.isc.dhcp.grammars
 
+import com.github.kczulko.isc.dhcp.grammars.Converters._
 import com.github.kczulko.isc.dhcp.model._
 
 import scala.util.parsing.combinator._
@@ -14,21 +15,12 @@ class LeasesGrammar
       lease
         | server_duid
         | unknown
-    ) ^^ {
-      case list =>
-        list.foldRight(Result()) { (item, result) =>
-          item match {
-            case l: Lease => result.copy(leases = l :: result.leases)
-            case s: ServerDuid => result.copy(serverDuid = Some(s))
-            case _ => result
-          }
-        }
-    }
+    ) ^^ toResult
 
-  private def unknown: Parser[Item] = """(.*)?\n""".r ^^ { case _ => Unknown }
+  private def unknown: Parser[Item] = """(.*)?\n""".r ^^ toUnknown
 
   private def server_duid: Parser[ServerDuid] =
-    "server-duid" ~ WHATEVER_REGEX ^^ { case _ ~ duid => ServerDuid(duid) }
+    "server-duid" ~ WHATEVER_REGEX ^^ toServerDuid /*{ case _ ~ duid => ServerDuid(duid) }*/
 
   private def lease: Parser[Lease] =
     "lease" ~ IP_ADDRESS_REGEX ~ "{" ~ rep(element) ~ "}" ^^ {
