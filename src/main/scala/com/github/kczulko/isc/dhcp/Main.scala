@@ -1,6 +1,6 @@
-package com.kczulko
+package com.github.kczulko.isc.dhcp
 
-import com.kczulko.isc.dhcp.grammars.IscDhcpLeasesGrammar
+import com.github.kczulko.isc.dhcp.grammars.LeasesGrammar
 
 object Main {
   val leaseEntry =
@@ -16,7 +16,7 @@ object Main {
       |  rewind binding state free;
       |  hardware ethernet 54:ab:aa:36:b4:e1;
       |  client-hostname "other";
-      |}
+      |}fdsaasdf
       |server-duid "doesnotmatter";
       |lease 103.32.10.93 {
       |  starts 2 2016/10/18 10:17:05;
@@ -40,10 +40,10 @@ object Main {
     """.stripMargin
 
   def main(args: Array[String]): Unit = {
-    val grammar: IscDhcpLeasesGrammar = new IscDhcpLeasesGrammar
+    val grammar: LeasesGrammar = new LeasesGrammar
     println(leaseEntry)
     println(
-      grammar.parseAll(grammar.leases, leaseEntry + "whatever can be here")
+      grammar.parseAll(grammar.leases, leaseEntry /*+ "whatever can be here"*/)
     )
   }
 }

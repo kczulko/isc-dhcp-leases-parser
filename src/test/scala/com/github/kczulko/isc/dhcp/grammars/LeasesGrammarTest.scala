@@ -1,16 +1,12 @@
-package com.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp.grammars
 
-import com.kczulko.isc.dhcp.grammars.TestData.{
-  multipleLeases,
-  singleLeaseWithServerDuid,
-  singleLeaseWithoutSomeData
-}
-import com.kczulko.isc.dhcp.model._
+import TestData.{multipleLeases, singleLeaseWithServerDuid, singleLeaseWithoutSomeData}
+import com.github.kczulko.isc.dhcp.model.Result
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
-class IscDhcpLeasesGrammarTest extends FlatSpec with Matchers with Inside {
+class LeasesGrammarTest extends FlatSpec with Matchers with Inside {
 
-  val grammar = new IscDhcpLeasesGrammar
+  val grammar = new LeasesGrammar
 
   "leases parser" should "parse valid single entry without some data" in {
     val result =
@@ -48,9 +44,9 @@ class IscDhcpLeasesGrammarTest extends FlatSpec with Matchers with Inside {
     }
   }
 
-  ignore should "not fail when unknow entry appears in filestream" in {
+  it should "not fail when unknow entry appears in file stream" in {
     val entry = (
-      singleLeaseWithServerDuid._1 + "\n whatever can be here",
+      singleLeaseWithServerDuid._1 + "\n whatever can be here\n",
       singleLeaseWithServerDuid._2
     )
 

@@ -1,4 +1,4 @@
-package com.kczulko.isc.dhcp.parsers
+package com.github.kczulko.isc.dhcp.parsers
 
 import scala.util.matching.Regex
 import scala.util.matching.Regex.Match

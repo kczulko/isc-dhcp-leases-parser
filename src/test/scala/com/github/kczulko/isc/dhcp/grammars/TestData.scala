@@ -1,7 +1,6 @@
-package com.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp.grammars
 
-import com.kczulko.isc.dhcp.model.{ClientHostname, _}
-
+import com.github.kczulko.isc.dhcp.model._
 
 object TestData {
   val singleLeaseWithoutSomeData = ("""

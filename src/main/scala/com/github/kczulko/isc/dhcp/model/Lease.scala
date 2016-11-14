@@ -1,4 +1,4 @@
-package com.kczulko.isc.dhcp.model
+package com.github.kczulko.isc.dhcp.model
 
 case class Lease(ip: Ip,
                  uid: Option[Uid] = None,

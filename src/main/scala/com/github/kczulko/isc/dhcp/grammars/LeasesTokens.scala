@@ -1,11 +1,11 @@
-package com.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp.grammars
 
-import com.kczulko.isc.dhcp.parsers.RegexMatchedParser
+import com.github.kczulko.isc.dhcp.parsers.RegexMatchedParser
 
 import scala.util.matching.Regex
 import scala.util.parsing.combinator.Parsers
 
-private[grammars] trait IscDhcpLeasesTokens
+private[grammars] trait LeasesTokens
     extends Parsers
     with RegexMatchedParser {
   def DATE_LITERAL_REGEX: Parser[String] = """\d{4}/\d{2}/\d{2}""".r

@@ -1,11 +1,12 @@
-package com.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp.grammars
 
-import com.kczulko.isc.dhcp.model._
+import com.github.kczulko.isc.dhcp.model._
+
 import scala.util.parsing.combinator._
 
-class IscDhcpLeasesGrammar
+class LeasesGrammar
     extends RegexParsers
-    with IscDhcpLeasesTokens
+    with LeasesTokens
     with JavaTokenParsers {
 
   def leases: Parser[Result] =
