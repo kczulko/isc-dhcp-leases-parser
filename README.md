@@ -4,7 +4,7 @@ Simple isc-dhcp-leases file parser written in scala. Utilizes combinator-parsing
 
 # Mapping
 
-`dhcpd.leases` content like:
+Library allows to map `dhcpd.leases` content like:
 
 ```
 lease 110.31.40.13 {
@@ -38,7 +38,7 @@ lease 103.32.10.93 {
 }
 ```
 
-will be mapped into
+into following scala's case classes hierarchy:
 
 ```scala
 Result(
@@ -115,9 +115,9 @@ Parser is aware of following tokens within simple lease entry:
 1. `client-hostname` mapped to `ClientHostname` class
 1. `on (expiry | release | commit)` mapped to `OnEvent` class
 
-**Tokens other than those provided above will be ignored**.
+**Tokens other than mentioned above will be ignored**.
 
-On the other hand, parser expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases`.
+On the other hand, parser expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases` file content.
 
 # Usage example
 
