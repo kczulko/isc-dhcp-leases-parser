@@ -123,6 +123,16 @@ On the other hand, parser expects only `lease` or `server-duid` tokens on the ro
 
 TBD
 
-# Installation
+# Installation with sbt
 
-TBD
+Currently available only snapshot version.
+
+```scala
+resolvers ++= Seq(
+  "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+)
+
+libraryDependencies ++= Seq(
+  "com.github.kczulko" %% "isc-dhcp-leases-parser" % "1.0-SNAPSHOT"
+)
+```
