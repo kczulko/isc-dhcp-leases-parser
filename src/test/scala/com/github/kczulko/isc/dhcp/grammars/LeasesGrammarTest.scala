@@ -55,4 +55,14 @@ class LeasesGrammarTest extends FlatSpec with Matchers with Inside {
     val result = grammar.parseAll(grammar.leases, entry._1)
     result.successful shouldBe true
   }
+
+  it should "not fail when comment line appears in file stream" in {
+    val entry = (
+      "# any comment here\n" + singleLeaseWithServerDuid._1,
+      singleLeaseWithServerDuid._2
+    )
+
+    val result = grammar.parseAll(grammar.leases, entry._1)
+    result.successful shouldBe true
+  }
 }

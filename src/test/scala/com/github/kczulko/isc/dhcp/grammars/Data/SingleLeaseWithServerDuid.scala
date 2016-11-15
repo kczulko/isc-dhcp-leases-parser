@@ -5,7 +5,7 @@ import com.github.kczulko.isc.dhcp.grammars.Data.SingleLeaseWithoutSomeData.sing
 
 object SingleLeaseWithServerDuid {
   val singleLeaseWithServerDuid = (
-    """server-duid "can be whatever";""" + singleLeaseWithoutSomeData._1,
-    Result(List(singleLeaseWithoutSomeData._2), Some(ServerDuid(""""can be whatever"""")))
+      """server-duid "can be whatever";""" + singleLeaseWithoutSomeData._1,
+      Result(List(singleLeaseWithoutSomeData._2), Some(ServerDuid(""""can be whatever"""")))
     )
 }
