@@ -1,6 +1,9 @@
 package com.github.kczulko.isc.dhcp.grammars
 
-import com.github.kczulko.isc.dhcp.grammars.Converters._
+import com.github.kczulko.isc.dhcp.model.Lease.toLease
+import com.github.kczulko.isc.dhcp.model.Result.toResult
+import com.github.kczulko.isc.dhcp.model.ServerDuid.toServerDuid
+import com.github.kczulko.isc.dhcp.model.Unknown.toUnknown
 import com.github.kczulko.isc.dhcp.model._
 
 import scala.util.parsing.combinator._
@@ -24,22 +27,7 @@ class LeasesGrammar
 
   private def lease: Parser[Lease] =
     "lease" ~ IP_ADDRESS_REGEX ~ "{" ~ rep(element) ~ "}" ^^ {
-      case _ ~ ip ~ _ ~ elems ~ _ =>
-        elems.foldRight(Lease(Ip(ip)))((token, l) =>
-          token match {
-            case uid @ Uid(_) => l.copy(uid = Some(uid))
-            case bs @ BindingState(_) => l.copy(bindingState = Some(bs))
-            case oe @ OnEvent(_, _) => l.copy(onEvent = oe :: l.onEvent)
-            case v @ Variable(_) => l.copy(variables = l.variables + v)
-            case ch @ ClientHostname(_) => l.copy(clientHostname = Some(ch))
-            case he @ HardwareEthernet(_) =>
-              l.copy(hardwareEthernet = Some(he))
-            case n @ Notification(_, _) =>
-              l.copy(notifications = n :: l.notifications)
-            case ebs @ ExtendedBindingState(_, _) =>
-              l.copy(extendedBindingStates = ebs :: l.extendedBindingStates)
-            case _ => l
-        })
+      case _ ~ ip ~ _ ~ elems ~ _ => toLease(Ip(ip), elems)
     }
 
   private def element: Parser[Item] =
@@ -55,7 +43,7 @@ class LeasesGrammar
         | other
     ) <~ ";?".r
 
-  private def other: Parser[Item] = WHATEVER_REGEX ^^ { case _ => Unknown }
+  private def other: Parser[Item] = WHATEVER_REGEX ^^ toUnknown
 
   private def onEvent: Parser[OnEvent] =
     "on" ~ (

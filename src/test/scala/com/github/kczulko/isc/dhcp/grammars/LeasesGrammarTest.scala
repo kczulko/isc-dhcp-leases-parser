@@ -1,6 +1,8 @@
 package com.github.kczulko.isc.dhcp.grammars
 
-import TestData.{multipleLeases, singleLeaseWithServerDuid, singleLeaseWithoutSomeData}
+import com.github.kczulko.isc.dhcp.grammars.Data.MultipleLeases.multipleLeases
+import com.github.kczulko.isc.dhcp.grammars.Data.SingleLeaseWithoutSomeData.singleLeaseWithoutSomeData
+import com.github.kczulko.isc.dhcp.grammars.Data.SingleLeaseWithServerDuid.singleLeaseWithServerDuid
 import com.github.kczulko.isc.dhcp.model.Result
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
