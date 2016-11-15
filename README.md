@@ -123,6 +123,9 @@ On the other hand, parser expects only `lease` or `server-duid` tokens on the ro
 
 ```scala
 
+import scala.io.Source
+import com.github.kczulko.isc.dhcp.Grammar
+
 object Main {
 
   def using[A <: { def close() }, B](resource: => A)(f: A => B) = {
