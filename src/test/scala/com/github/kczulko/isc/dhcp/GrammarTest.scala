@@ -6,7 +6,11 @@ import com.github.kczulko.isc.dhcp.data.SingleLeaseWithoutSomeData._
 import com.github.kczulko.isc.dhcp.model.Result
 import org.scalatest.{EitherValues, FlatSpec, Inside, Matchers}
 
-class GrammarTest extends FlatSpec with Matchers with Inside with EitherValues {
+class GrammarTest
+    extends FlatSpec
+    with Matchers
+    with Inside
+    with EitherValues {
 
   val grammar = new Grammar
 

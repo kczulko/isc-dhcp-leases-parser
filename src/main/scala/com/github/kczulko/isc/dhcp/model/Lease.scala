@@ -21,11 +21,9 @@ case class OnEvent(eventName: String, commands: List[String]) extends Item
 case class ExtendedBindingState(`type`: String, state: String) extends Item
 case class Notification(name: String, info: Map[String, String]) extends Item
 
-
 object Unknown extends Item {
   def toUnknown(any: Any): Item = Unknown
 }
-
 
 object Lease {
   def toLease(ip: Ip, items: List[Item]) =
@@ -43,5 +41,5 @@ object Lease {
         case ebs @ ExtendedBindingState(_, _) =>
           l.copy(extendedBindingStates = ebs :: l.extendedBindingStates)
         case _ => l
-      })
+    })
 }

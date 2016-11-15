@@ -93,7 +93,8 @@ private[dhcp] class Grammar
 object Grammar {
   def apply(content: String): Either[String, Result] = {
     val grammar = new Grammar()
-    val result: Grammar#ParseResult[Result] = grammar.parseAll(grammar.leases, content)
+    val result: Grammar#ParseResult[Result] =
+      grammar.parseAll(grammar.leases, content)
     result match {
       case failure: Grammar#NoSuccess => Left(failure.msg)
       case success => Right(success.get)
