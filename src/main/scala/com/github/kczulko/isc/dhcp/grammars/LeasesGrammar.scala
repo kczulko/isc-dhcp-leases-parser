@@ -20,7 +20,7 @@ class LeasesGrammar
   private def unknown: Parser[Item] = """(.*)?\n""".r ^^ toUnknown
 
   private def server_duid: Parser[ServerDuid] =
-    "server-duid" ~ WHATEVER_REGEX ^^ toServerDuid /*{ case _ ~ duid => ServerDuid(duid) }*/
+    "server-duid" ~ WHATEVER_REGEX ^^ toServerDuid
 
   private def lease: Parser[Lease] =
     "lease" ~ IP_ADDRESS_REGEX ~ "{" ~ rep(element) ~ "}" ^^ {
