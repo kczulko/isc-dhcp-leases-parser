@@ -41,7 +41,8 @@ object Main {
     val grammar: Grammar = new Grammar
     println(leaseEntry)
     println(
-      grammar.parseAll(grammar.leases, leaseEntry /*+ "whatever can be here"*/)
+      Grammar(leaseEntry)
+//      grammar.parseAll(grammar.leases, leaseEntry /*+ "whatever can be here"*/)
     )
   }
 }

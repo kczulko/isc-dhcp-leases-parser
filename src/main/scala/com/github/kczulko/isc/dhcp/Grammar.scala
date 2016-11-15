@@ -8,7 +8,7 @@ import com.github.kczulko.isc.dhcp.model._
 
 import scala.util.parsing.combinator._
 
-class Grammar
+private[dhcp] class Grammar
     extends RegexParsers
     with Tokens
     with JavaTokenParsers {
@@ -88,5 +88,15 @@ class Grammar
   private def uid: Parser[Uid] = "uid" ~ WHATEVER_REGEX ^^ {
     case _ ~ uid => Uid(uid)
   }
+}
 
+object Grammar {
+  def apply(content: String): Either[String, Result] = {
+    val grammar = new Grammar()
+    val result: Grammar#ParseResult[Result] = grammar.parseAll(grammar.leases, content)
+    result match {
+      case failure: Grammar#NoSuccess => Left(failure.msg)
+      case success => Right(success.get)
+    }
+  }
 }
