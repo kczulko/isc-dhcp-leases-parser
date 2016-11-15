@@ -1,4 +1,4 @@
-name := "leases-parser"
+name := "isc-dhcp-leases-parser"
 
 version := "1.0"
 

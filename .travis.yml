@@ -7,7 +7,7 @@ cache:
     - $HOME/.ivy2
 
 jdk:
-  - openjdk8
+  - oraclejdk8
 
 scala:
   - 2.12.0
