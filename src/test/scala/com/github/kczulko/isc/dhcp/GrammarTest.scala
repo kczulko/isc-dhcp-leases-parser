@@ -1,14 +1,14 @@
-package com.github.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp
 
-import com.github.kczulko.isc.dhcp.grammars.Data.MultipleLeases.multipleLeases
-import com.github.kczulko.isc.dhcp.grammars.Data.SingleLeaseWithoutSomeData.singleLeaseWithoutSomeData
-import com.github.kczulko.isc.dhcp.grammars.Data.SingleLeaseWithServerDuid.singleLeaseWithServerDuid
+import com.github.kczulko.isc.dhcp.data.MultipleLeases._
+import com.github.kczulko.isc.dhcp.data.SingleLeaseWithServerDuid._
+import com.github.kczulko.isc.dhcp.data.SingleLeaseWithoutSomeData._
 import com.github.kczulko.isc.dhcp.model.Result
 import org.scalatest.{FlatSpec, Inside, Matchers}
 
-class LeasesGrammarTest extends FlatSpec with Matchers with Inside {
+class GrammarTest extends FlatSpec with Matchers with Inside {
 
-  val grammar = new LeasesGrammar
+  val grammar = new Grammar
 
   "leases parser" should "parse valid single entry without some data" in {
     val result =
@@ -50,7 +50,7 @@ class LeasesGrammarTest extends FlatSpec with Matchers with Inside {
     val entry = (
       singleLeaseWithServerDuid._1 + "\n whatever can be here\n",
       singleLeaseWithServerDuid._2
-    )
+      )
 
     val result = grammar.parseAll(grammar.leases, entry._1)
     result.successful shouldBe true
@@ -60,7 +60,7 @@ class LeasesGrammarTest extends FlatSpec with Matchers with Inside {
     val entry = (
       "# any comment here\n" + singleLeaseWithServerDuid._1,
       singleLeaseWithServerDuid._2
-    )
+      )
 
     val result = grammar.parseAll(grammar.leases, entry._1)
     result.successful shouldBe true

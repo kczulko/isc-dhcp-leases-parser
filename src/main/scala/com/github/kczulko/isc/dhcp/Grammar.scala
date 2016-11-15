@@ -1,4 +1,4 @@
-package com.github.kczulko.isc.dhcp.grammars
+package com.github.kczulko.isc.dhcp
 
 import com.github.kczulko.isc.dhcp.model.Lease.toLease
 import com.github.kczulko.isc.dhcp.model.Result.toResult
@@ -8,9 +8,9 @@ import com.github.kczulko.isc.dhcp.model._
 
 import scala.util.parsing.combinator._
 
-class LeasesGrammar
+class Grammar
     extends RegexParsers
-    with LeasesTokens
+    with Tokens
     with JavaTokenParsers {
 
   def leases: Parser[Result] =

@@ -1,7 +1,5 @@
 package com.github.kczulko.isc.dhcp
 
-import com.github.kczulko.isc.dhcp.grammars.LeasesGrammar
-
 object Main {
   val leaseEntry =
     """
@@ -40,7 +38,7 @@ object Main {
     """.stripMargin
 
   def main(args: Array[String]): Unit = {
-    val grammar: LeasesGrammar = new LeasesGrammar
+    val grammar: Grammar = new Grammar
     println(leaseEntry)
     println(
       grammar.parseAll(grammar.leases, leaseEntry /*+ "whatever can be here"*/)

@@ -1,4 +1,4 @@
-package com.github.kczulko.isc.dhcp.grammars.Data
+package com.github.kczulko.isc.dhcp.data
 
 import com.github.kczulko.isc.dhcp.model.{ClientHostname, HardwareEthernet, OnEvent, Variable, _}
 
