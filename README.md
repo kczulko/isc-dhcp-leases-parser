@@ -151,7 +151,7 @@ object Main {
 
 # Installation with sbt
 
-Currently available only snapshot version.
+Currently available only snapshot version for scala 2.12.
 
 ```scala
 resolvers ++= Seq(
