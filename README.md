@@ -1,8 +1,20 @@
+Table of contents
+=================
+
+* [Introduction](#isc-dhcp-leases-parser)
+* [Mapping example](#mapping-example)
+* [Usage example](#usage-example)
+* [Installation](#installation)
+
 [![Build Status](https://travis-ci.org/kczulko/isc-dhcp-leases-parser.svg?branch=master)](https://travis-ci.org/kczulko/isc-dhcp-leases-parser)
+
+isc-dhcp-leases-parser
+======================
 
 Simple isc-dhcp-leases file parser written in scala. Utilizes combinator-parsing module from `scala.util`. It allows to map content of `/var/lib/dhcp/dhcpd.leases` file into simple scala's case classes structure.
 
-# Mapping example
+Mapping example
+---------------
 
 Library allows to map `dhcpd.leases` content like:
 
@@ -119,7 +131,8 @@ Parser is aware of following tokens within simple lease entry:
 
 On the other hand, parser expects only `lease` or `server-duid` tokens on the root level of `dhcpd.leases` file content.
 
-# Usage example
+Usage example
+-------------
 
 ```scala
 
@@ -149,7 +162,8 @@ object Main {
 
 ```
 
-# Installation with sbt
+Installation
+------------
 
 Currently available only snapshot version for scala 2.12.
 
