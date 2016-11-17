@@ -143,7 +143,6 @@ import resource.managed
 import scala.io.Source
 
 object Main {
-
   def main(args: Array[String]) {
     for {
       file <- managed(Source.fromFile("/var/lib/dhcp/dhcpd.leases"))
