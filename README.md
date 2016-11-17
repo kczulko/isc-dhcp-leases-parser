@@ -144,9 +144,9 @@ import scala.io.Source
 
 object Main {
   def main(args: Array[String]) =
-    for { file <- managed(Source.fromFile("/home/karol/leases")) }
+    for { file <- managed(Source.fromFile("/var/lib/dhcp/dhcpd.leases")) }
       Grammar(file getLines() mkString "\n") match {
-        case Right(result) => println(result)// launch your rocket here
+        case Right(result) => // launch your rocket here
         case _ => // oops!!! open pull request ;)
       }
 }
