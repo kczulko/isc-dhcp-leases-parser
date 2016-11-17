@@ -134,28 +134,24 @@ On the other hand, parser expects only `lease` or `server-duid` tokens on the ro
 Usage example
 -------------
 
+With a little help of [scala-arm](https://github.com/jsuereth/scala-arm).
+
 ```scala
 
-import scala.io.Source
 import com.github.kczulko.isc.dhcp.Grammar
+import resource.managed
+import scala.io.Source
 
 object Main {
 
-  def using[A <: { def close() }, B](resource: => A)(f: A => B) = {
-    try {
-      f(resource)
-    } finally {
-      resource.close()
-    }
-  }
-
   def main(args: Array[String]) {
-    using(Source.fromFile("/var/lib/dhcp/dhcpd.leases")) {
-      leasesFile =>
-        Grammar(leasesFile getLines() mkString "\n") match {
-          case Right(result) => // launch your rocket here
-          case _ => // oops!!! open pull request ;)
-        }
+    for {
+      file <- managed(Source.fromFile("/var/lib/dhcp/dhcpd.leases"))
+    } {
+      Grammar(file getLines() mkString "\n") match {
+        case Right(result) => // launch your rocket here
+        case _ => // oops!!! open pull request ;)
+      }
     }
   }
 }
